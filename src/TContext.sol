@@ -21,14 +21,13 @@ abstract contract TContext {
 
     function pushContext() private {
         assembly {
-            tstore(contextSlot, add(1, tload(contextSlot)))
+            tstore(contextSlot, add(tload(contextSlot), 1))
         }
     }
 
     function popContext() private {
-        uint256 ctx = context() - 1;
         assembly {
-            tstore(contextSlot, ctx)
+            tstore(contextSlot, sub(tload(contextSlot), 1))
         }
     }
 }
