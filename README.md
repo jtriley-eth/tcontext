@@ -1,66 +1,10 @@
-## Foundry
+# T Context
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+[`TContext`](./src/TContext.sol) sets a base transient storage context for
+contracts that want to write transient variables at the call context level
 
-Foundry consists of:
+inherit `TContext` and use `newContext` modifier to push a new context on each
+call to the function
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+the `context()` function returns the new call context's frame, a keccak hash of
+the current context count. this mitigates transient storage collisions

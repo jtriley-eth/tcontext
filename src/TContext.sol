@@ -14,7 +14,8 @@ abstract contract TContext {
 
     function context() internal view returns (uint256 ctx) {
         assembly {
-            ctx := tload(contextSlot)
+            mstore(0x00, tload(contextSlot))
+            ctx := keccak256(0x00, 0x20)
         }
     }
 
