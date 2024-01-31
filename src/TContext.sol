@@ -9,7 +9,6 @@ abstract contract TContext {
     modifier newContext() {
         pushContext();
         _;
-        popContext();
     }
 
     function context() internal view returns (uint256 ctx) {
@@ -22,12 +21,6 @@ abstract contract TContext {
     function pushContext() private {
         assembly {
             tstore(contextSlot, add(tload(contextSlot), 1))
-        }
-    }
-
-    function popContext() private {
-        assembly {
-            tstore(contextSlot, sub(tload(contextSlot), 1))
         }
     }
 }
